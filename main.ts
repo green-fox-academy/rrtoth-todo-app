@@ -13,18 +13,12 @@ function writeTodo() {
     fs.writeFileSync("todo-list.txt", a.join('\n'), "utf-8")
 }
 
-// let err = {
-//     'noI': 'a',
-//     'outOfBound': 'Unable to remove: index is out of bound',
-//     'iNotNum': 'Unable to remove: index is not a number'
-// }
-
 if (!arg1) {
     console.log(usageInfo)
 } else if (arg1 == '-l') {
-    todoList == '' ? console.log("No todos for today! :)") : a.forEach(e => { console.log((a.indexOf(e) + 1) + " - " + e) })
+    todoList == '' ? console.log('No todos for today! :)') : a.forEach(e => { console.log((a.indexOf(e) + 1) + " - " + e) })
 } else if (arg1 == '-a') {
-    !arg2 ? console.log("Unable to add: no task provided") : fs.appendFileSync("todo-list.txt", "\n" + arg2, "utf-8")
+    !arg2 ? console.log('Unable to add: no task provided') : fs.appendFileSync("todo-list.txt", "\n" + arg2, "utf-8")
 } else if (arg1 == '-r') {
     if (!arg2) {
         console.log('Unable to remove: no index provided');
