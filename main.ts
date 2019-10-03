@@ -1,5 +1,7 @@
 'use strict';
 
+import { isNumber } from "util";
+
 const fs = require('fs');
 
 let usageInfo: string = fs.readFileSync("usage-info.txt", "utf-8")
@@ -15,8 +17,10 @@ if (!process.argv[2]) {
 } else if (process.argv[2] == '-r') {
     if (!process.argv[3]) {
         console.log('Unable to remove: no index provided');
-    } else if (parseInt(process.argv[3]) > a.length) {
+    } else if (parseInt(process.argv[3]) > a.length || parseInt(process.argv[3]) < 1) {
         console.log('Unable to remove: index is out of bound')
+    } else if (isNaN(parseInt(process.argv[3]))) {
+        console.log('Unable to remove: index is not a number')
     } else {
         a.splice(parseInt(process.argv[3]) - 1, 1)
         fs.writeFileSync("todo-list.txt", a.join('\n'), "utf-8")
