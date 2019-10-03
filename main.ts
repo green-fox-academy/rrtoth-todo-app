@@ -1,12 +1,11 @@
 'use strict';
 
-import { isNumber } from "util";
-
 const fs = require('fs');
 
 let usageInfo: string = fs.readFileSync("usage-info.txt", "utf-8")
 let todoList: string = fs.readFileSync("todo-list.txt", "utf-8")
 let a: string[] = todoList.split('\n')
+let args: string[] = ['l', 'a', 'r', 'c']
 
 if (!process.argv[2]) {
     console.log(usageInfo)
@@ -25,4 +24,6 @@ if (!process.argv[2]) {
         a.splice(parseInt(process.argv[3]) - 1, 1)
         fs.writeFileSync("todo-list.txt", a.join('\n'), "utf-8")
     }
+} else if (!args.some(e => {e == process.argv[2]})) {
+    console.log('Unsupported argument\n\n' + usageInfo)
 }
