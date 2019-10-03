@@ -5,9 +5,10 @@ const fs = require('fs');
 let usageInfo: string = fs.readFileSync("usage-info.txt", "utf-8")
 let todoList: string = fs.readFileSync("todo-list.txt", "utf-8")
 let a: string[] = todoList.split('\n')
-const args: string[] = ['-l', '-a', '-r', '-c']
+const args: string[] = ['-l', '-a', '-r', '-c', '-lu', '-lc']
 let arg1 = process.argv[2]
 let arg2 = process.argv[3]
+let arg3 = process.argv[4]
 
 function writeTodo() {
     fs.writeFileSync("todo-list.txt", a.join('\n'), "utf-8")
@@ -18,7 +19,11 @@ if (!arg1) {
 } else if (arg1 == '-l') {
     todoList == '' ? console.log('No todos for today! :)') : a.forEach(e => { console.log((a.indexOf(e) + 1) + " - " + e) })
 } else if (arg1 == '-a') {
-    !arg2 ? console.log('Unable to add: no task provided') : fs.appendFileSync("todo-list.txt", "\n" + arg2, "utf-8")
+    if (arg3) {
+        !arg2 ? console.log('Unable to add: no task provided') : fs.appendFileSync("todo-list.txt", "\n" + arg2 + "\n" + arg3, "utf-8")
+    } else {
+        !arg2 ? console.log('Unable to add: no task provided') : fs.appendFileSync("todo-list.txt", "\n" + arg2, "utf-8")
+    }
 } else if (arg1 == '-r') {
     if (!arg2) {
         console.log('Unable to remove: no index provided');
