@@ -9,5 +9,5 @@ let a: string[] = todoList.split('\n')
 if (!process.argv[2]) {
     console.log(usageInfo)
 } else if (process.argv[2] == '-l') {
-    a.forEach(e => { console.log((a.indexOf(e) + 1) + " - " + e)})
+    todoList == ''? console.log("No todos for today! :)") : a.forEach(e => { console.log((a.indexOf(e) + 1) + " - " + e) })
 }
