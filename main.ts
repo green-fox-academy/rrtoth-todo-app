@@ -5,7 +5,7 @@ const fs = require('fs');
 let usageInfo: string = fs.readFileSync("usage-info.txt", "utf-8")
 let todoList: string = fs.readFileSync("todo-list.txt", "utf-8")
 let a: string[] = todoList.split('\n')
-let args: string[] = ['l', 'a', 'r', 'c']
+let args: string[] = ['-l', '-a', '-r', '-c']
 
 if (!process.argv[2]) {
     console.log(usageInfo)
@@ -24,6 +24,22 @@ if (!process.argv[2]) {
         a.splice(parseInt(process.argv[3]) - 1, 1)
         fs.writeFileSync("todo-list.txt", a.join('\n'), "utf-8")
     }
-} else if (!args.some(e => {e == process.argv[2]})) {
+} else if (process.argv[2] == '-c') {
+    if (a[0].substring(0, 1) == '[') {
+        a[parseInt(process.argv[3]) - 1] = "[x]" + a[parseInt(process.argv[3]) - 1].substring(3)
+        fs.writeFileSync("todo-list.txt", a.join('\n'), "utf-8")
+        console.log(a[0].substring(0, 0))
+    } else {
+        for (let i = 0; i < a.length; i++) {
+            a[i] = "[ ] " + a[i]
+        }
+
+        if (a.length >= 2) {
+            a[parseInt(process.argv[3]) - 1] = "[x]" + a[parseInt(process.argv[3]) - 1].substring(3)
+            fs.writeFileSync("todo-list.txt", a.join('\n'), "utf-8")
+        }
+    }
+
+} else if (!args.some(e => { e == process.argv[2] })) {
     console.log('Unsupported argument\n\n' + usageInfo)
 }
