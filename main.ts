@@ -19,10 +19,18 @@ if (!arg1) {
 } else if (arg1 == '-l') {
     todoList == '' ? console.log('No todos for today! :)') : a.forEach(e => { console.log((a.indexOf(e) + 1) + " - " + e) })
 } else if (arg1 == '-a') {
-    if (arg3) {
-        !arg2 ? console.log('Unable to add: no task provided') : fs.appendFileSync("todo-list.txt", "\n" + arg2 + "\n" + arg3, "utf-8")
+    if (a[0].substring(0,1)=='['){
+        if (arg3) {
+            !arg2 ? console.log('Unable to add: no task provided') : fs.appendFileSync("todo-list.txt", "\n[ ] " + arg2 + "\n[ ]" + arg3, "utf-8")
+        } else {
+            !arg2 ? console.log('Unable to add: no task provided') : fs.appendFileSync("todo-list.txt", "\n[ ] " + arg2, "utf-8")
+        }
     } else {
-        !arg2 ? console.log('Unable to add: no task provided') : fs.appendFileSync("todo-list.txt", "\n" + arg2, "utf-8")
+        if (arg3) {
+            !arg2 ? console.log('Unable to add: no task provided') : fs.appendFileSync("todo-list.txt", "\n" + arg2 + "\n" + arg3, "utf-8")
+        } else {
+            !arg2 ? console.log('Unable to add: no task provided') : fs.appendFileSync("todo-list.txt", "\n" + arg2, "utf-8")
+        }
     }
 } else if (arg1 == '-r') {
     if (!arg2) {
@@ -32,8 +40,14 @@ if (!arg1) {
     } else if (isNaN(parseInt(arg2))) {
         console.log('Unable to remove: index is not a number')
     } else {
-        a.splice(parseInt(arg2) - 1, 1)
-        writeTodo()
+        if (arg3) {
+            a.splice(parseInt(arg3) - 1, 1)
+            a.splice(parseInt(arg2) - 1, 1)
+            writeTodo()
+        } else {
+            a.splice(parseInt(arg2) - 1, 1)
+            writeTodo()
+        }
     }
 } else if (arg1 == '-c') {
     if (!arg2) {
