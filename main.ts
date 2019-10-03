@@ -15,6 +15,8 @@ if (!process.argv[2]) {
 } else if (process.argv[2] == '-r') {
     if (!process.argv[3]) {
         console.log('Unable to remove: no index provided');
+    } else if (parseInt(process.argv[3]) > a.length) {
+        console.log('Unable to remove: index is out of bound')
     } else {
         a.splice(parseInt(process.argv[3]) - 1, 1)
         fs.writeFileSync("todo-list.txt", a.join('\n'), "utf-8")
